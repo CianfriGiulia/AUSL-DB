@@ -1,0 +1,18 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://theausl.com/bandits/roster/?season=2026-ausl"
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    )
+}
+resp = requests.get(url, headers=headers, timeout=15)
+soup = BeautifulSoup(resp.text, "html.parser")
+
+print("Status code:", resp.status_code)
+print("HTML length:", len(resp.text))
+print("Total <table> tags:", len(soup.find_all("table")))
+print("Total <tr> tags:", len(soup.find_all("tr")))
